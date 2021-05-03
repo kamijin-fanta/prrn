@@ -1,4 +1,4 @@
-module prrn
+module github.com/kamijin-fanta/prrn
 
 go 1.16
 
