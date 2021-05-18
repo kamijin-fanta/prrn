@@ -1,0 +1,14 @@
+-- +migrate Up
+SET FOREIGN_KEY_CHECKS = 0;
+CREATE TABLE `article` (
+`id` BIGINT (20) NOT NULL AUTO_INCREMENT,
+`content` TEXT NOT NULL,
+PRIMARY KEY (`id`)
+);
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- +migrate Down
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE `article`;
+SET FOREIGN_KEY_CHECKS = 1;

@@ -1,0 +1,6 @@
+# config for https://github.com/rubenv/sql-migrate
+# mysql -h 127.0.0.1 -P 3306 -u root --password=password
+development:
+  dialect: mysql
+  datasource: root:password@tcp(127.0.0.1:3306)/prrn?parseTime=true
+  dir: schema/migrations/

@@ -1,0 +1,12 @@
+-- +migrate Up
+SET FOREIGN_KEY_CHECKS = 0;
+ALTER TABLE `article` ADD COLUMN `original_url` VARCHAR (255) NOT NULL AFTER `content`;
+ALTER TABLE `article` ADD COLUMN `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `original_url`;
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- +migrate Down
+SET FOREIGN_KEY_CHECKS = 0;
+ALTER TABLE `article` DROP COLUMN `created_at`;
+ALTER TABLE `article` DROP COLUMN `original_url`;
+SET FOREIGN_KEY_CHECKS = 1;
