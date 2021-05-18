@@ -4,9 +4,6 @@ import (
 	"bytes"
 	"github.com/schemalex/schemalex/diff"
 	"github.com/urfave/cli/v2"
-	"io/ioutil"
-	"os"
-	"path/filepath"
 )
 
 func cmdMake(c *cli.Context) error {
@@ -17,7 +14,7 @@ func cmdMake(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	mainSql, err := readFileAll(filepath.Join(baseDir, "main.sql"))
+	mainSql, err := readFileAll(mainSqlFile(baseDir))
 	if err != nil {
 		return err
 	}
@@ -41,35 +38,6 @@ func cmdMake(c *cli.Context) error {
 		Name: newName,
 	}
 	err = put(baseDir, newHistory, migrationSql.Bytes(), mainSql)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func readFileAll(path string) ([]byte, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-	buff, err := ioutil.ReadAll(f)
-	if err != nil {
-		return nil, err
-	}
-	return buff, err
-}
-
-func put(baseDir string, history *history, migration, full []byte) error {
-	historiesBase := filepath.Join(baseDir, "histories")
-	migrationsBase := filepath.Join(baseDir, "migrations")
-
-	err := os.WriteFile(filepath.Join(historiesBase, history.SqlFilename()), full, os.ModePerm)
-	if err != nil {
-		return err
-	}
-	err = os.WriteFile(filepath.Join(migrationsBase, history.SqlFilename()), migration, os.ModePerm)
 	if err != nil {
 		return err
 	}

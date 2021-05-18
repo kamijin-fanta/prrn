@@ -15,13 +15,18 @@ func main() {
 		Usage: "simple sql migrator",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:  "dir",
-				Value: "schema",
+				Name:    "dir",
+				Value:   "schema",
+				EnvVars: []string{"PRRN_DIR"},
 			},
 		},
 	}
 
 	app.Commands = []*cli.Command{
+		{
+			Name:   "init",
+			Action: cmdInit,
+		},
 		{
 			Name: "make",
 			Flags: []cli.Flag{
