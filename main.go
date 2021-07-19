@@ -34,6 +34,10 @@ func main() {
 					Name:     "name",
 					Required: true,
 				},
+				&cli.StringFlag{
+					Name:     "tool",
+					Required: false,
+				},
 			},
 			Action: cmdMake,
 		},
