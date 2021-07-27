@@ -1,10 +1,12 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
-	"github.com/urfave/cli/v2"
 	"log"
 	"os"
+	"strings"
+
+	"github.com/joho/godotenv"
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
@@ -35,8 +37,10 @@ func main() {
 					Required: true,
 				},
 				&cli.StringFlag{
-					Name:     "tool",
-					Required: false,
+					Name:        "tool",
+					Required:    false,
+					DefaultText: "sql-migrate",
+					Usage:       "supported " + strings.Join([]string{SQLMigrate, GolangMigrate}, ", "),
 				},
 			},
 			Action: cmdMake,
