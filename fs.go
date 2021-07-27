@@ -19,18 +19,13 @@ func readFileAll(path string) ([]byte, error) {
 	return buff, err
 }
 
-func put(baseDir string, history *history, migration, full []byte) error {
+func putHistory(baseDir string, history *history, full []byte) error {
+	return os.WriteFile(filepath.Join(historiesBase(baseDir), history.SqlFilename()), full, os.ModePerm)
 
-	err := os.WriteFile(filepath.Join(historiesBase(baseDir), history.SqlFilename()), full, os.ModePerm)
-	if err != nil {
-		return err
-	}
-	err = os.WriteFile(filepath.Join(migrationsBase(baseDir), history.SqlFilename()), migration, os.ModePerm)
-	if err != nil {
-		return err
-	}
+}
 
-	return nil
+func putMigrationFile(baseDir string, sqlFileName string, migration []byte) error {
+	return os.WriteFile(filepath.Join(migrationsBase(baseDir), sqlFileName), migration, os.ModePerm)
 }
 
 func historiesBase(baseDir string) string {
